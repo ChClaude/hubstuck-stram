@@ -1,8 +1,9 @@
 {
-  "name": "react-movies",
-  "version": "0.1.0",
+  "name": "NelhStream",
+  "version": "0.1.1",
   "dependencies": {
     "bootstrap": "^4.1.1",
+    "jquery": "^3.4.0",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
     "query-string": "^6.1.0",

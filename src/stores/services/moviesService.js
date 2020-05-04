@@ -1,4 +1,5 @@
-const API_KEY = process.env.REACT_APP_API_KEY
+const API_KEY = "087a15f97ae0caf207dbc11e4e297393";
+
 
 export function searchMovie(title, page) {
   let API_URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&append_to_response=releases`
@@ -75,7 +76,7 @@ export function getGenresByID(ids) {
     },
     {
       id: 878,
-      name: 'Science Fiction'
+      name: 'Sci-Fi'
     },
     {
       id: 10770,
@@ -103,7 +104,37 @@ export function getGenresByID(ids) {
 
   return data
 }
+export function getLatest() {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `https://api.themoviedb.org/3/movie/latest?api_key=${API_KEY}&language=en-US`
+    )
+      .then(res => res.json())
+      .then(json => {
+        resolve(json)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
 
+export function getTrending(page) {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}&page=${page}`
+    )
+      .then(res => res.json())
+      .then(json => {
+        resolve(json)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+// Get most popular Movie 
 export function getPopular(page) {
   return new Promise((resolve, reject) => {
     fetch(
@@ -119,6 +150,7 @@ export function getPopular(page) {
   })
 }
 
+// Get top rated Movie 
 export function getTopRated(page) {
   return new Promise((resolve, reject) => {
     fetch(
@@ -134,9 +166,10 @@ export function getTopRated(page) {
   })
 }
 
+// Get Movie detail 
 export function getDetailedMovie(movieID) {
   return new Promise((resolve, reject) => {
-    fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}`)
+    fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${API_KEY}&append_to_response=videos`)
       .then(res => res.json())
       .then(json => {
         resolve(json)
@@ -146,3 +179,32 @@ export function getDetailedMovie(movieID) {
       })
   })
 }
+
+// Get tv detail 
+export function getDetailedtv(movieID) {
+  return new Promise((resolve, reject) => {
+    fetch(`https://api.themoviedb.org/3/tv/${movieID}?api_key=${API_KEY}&append_to_response=videos`)
+      .then(res => res.json())
+      .then(json => {
+        resolve(json)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+
+// Get Ip Address 
+export function getIpAddress() {
+  return new Promise((resolve, reject) => {
+    fetch('https://api6.ipify.org?format=json')
+      .then(response => response.json())
+      .then(json => {
+        resolve(json)
+      })
+      .catch(err => {
+        reject(err)
+      })
+  })
+}
+

@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import Router from "./routing/router";
 import LoadingBar from 'react-top-loading-bar'
-import store from "./store";
-import { setLoadingBarProgress } from "./actions";
+import store from "./stores/store";
+import { setLoadingBarProgress } from "./stores/actions";
+
 require("dotenv").config();
 
 export default class App extends Component {
@@ -15,14 +16,13 @@ export default class App extends Component {
     const { loadingBar } = store.getState();
     return (
       <div>
-        <LoadingBar
-          progress={loadingBar.progress}
-          onLoaderFinished={() => store.dispatch(setLoadingBarProgress(0))}
-        />
+          <LoadingBar
+            height={4}
+            progress={loadingBar.progress}
+            onLoaderFinished={() => store.dispatch(setLoadingBarProgress(0))}
+          />
         <NavBar />
-        <main className="container">
-          <Router />
-        </main>
+        <Router />
       </div>
     );
   }

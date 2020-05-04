@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Movie from "./movie";
 import Pagination from "./pagination";
-import { getTopRated } from "../services/moviesService";
-import { beginTheBar, endTheBar } from "../services/loadingBarService";
+import { getTopRated } from "../stores/services/moviesService";
+import { beginTheBar, endTheBar } from "../stores/services/loadingBarService";
 import ListOrGrid from "./listOrGrid";
 import queryString from "query-string";
 
@@ -65,27 +65,32 @@ class TopRated extends Component {
     const { total_pages: totalPages, page: currentPage } = this.state.rawData;
 
     return (
-      <div>
-        <h1 className="movies-main-header display-4">Top Rated</h1>
-        <div className="float-right">
-          <ListOrGrid
-            active={this.state.layoutMode}
-            changeLayout={e => this.handleLayoutChange(e)}
-          />
+      <div className="container padding-top-md">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="justify-content-between">
+              <div class="d-flex">
+                <ListOrGrid
+                  active={this.state.layoutMode}
+                  changeLayout={e => this.handleLayoutChange(e)}
+                />
+                <h2 className="ml-2">Top Rate</h2>
+              </div>
+            <div className="tiles">
+              {movies.map(m => (
+                <Movie key={m.id} movie={m} type={this.state.layoutMode} />
+              ))}
+            </div>
+              <div className='my-3'>
+              <Pagination
+                pageCount={totalPages || 1}
+                currentPage={currentPage}
+                onPageChange={this.handlePageChange}
+              />
+            </div>
+          </div>
         </div>
-        <br />
-        <br />
-        <br />
-        <ul className="row">
-          {movies.map(m => (
-            <Movie key={m.id} movie={m} type={this.state.layoutMode} />
-          ))}
-        </ul>
-        <Pagination
-          pageCount={totalPages || 1}
-          currentPage={currentPage}
-          onPageChange={this.handlePageChange}
-        />
+      </div>
       </div>
     );
   }

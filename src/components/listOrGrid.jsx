@@ -8,7 +8,7 @@ const ListOrGrid = props => {
           onClick={() => props.changeLayout('grid')}
           className={props.active === 'grid' ? 'page-item active' : 'page-item'}
         >
-          <div className="page-link">
+          <div className="page-link rounded-0">
             <i className="fa fa-th" aria-hidden="true" />
           </div>
         </li>
@@ -16,7 +16,7 @@ const ListOrGrid = props => {
           onClick={() => props.changeLayout('list')}
           className={props.active === 'list' ? 'page-item active' : 'page-item'}
         >
-          <div className="page-link">
+          <div className="page-link rounded-0">
             <i className="fa fa-list-ul" aria-hidden="true" />
           </div>
         </li>

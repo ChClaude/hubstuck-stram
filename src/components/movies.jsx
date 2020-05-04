@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { searchMovie } from "../services/moviesService";
+import { searchMovie } from "../stores/services/moviesService";
 import Movie from "./movie";
 import Pagination from "./pagination";
 import ListOrGrid from "./listOrGrid";
 import queryString from "query-string";
-import { beginTheBar, endTheBar } from "../services/loadingBarService";
+import { beginTheBar, endTheBar } from "../stores/services/loadingBarService";
 
 class Movies extends Component {
   constructor(props) {
@@ -132,41 +132,59 @@ class Movies extends Component {
 
     return (
       <div>
-        <br />
-        <div className="inline-form">
-          <form className="form-inline" onSubmit={this.handleFormSubmit}>
-            <div className="form-group mx-sm-3 mb-2">
-              <input
-                type="text"
-                className="form-control"
-                id="movieTitle"
-                autoFocus
-                placeholder="Movie Title"
-                value={this.state.searchMovieName}
-                onChange={this.handleMovieTitleInput}
-              />
+        <header className="header-1">
+          <div className="header-inner">
+            <div className="header-search">
+              <div className="search">
+                <i className="material-icons">search</i>
+                <input type="search" 
+                  id="movieTitle"
+                  autoFocus
+                  placeholder="Movie Title"
+                  value={this.state.searchMovieName}
+                  onChange={this.handleMovieTitleInput}
+                  onKeyUp={this.handleFormSubmit}
+                />
+              </div>
             </div>
-            <button type="submit" className="btn btn-primary mb-2 ml-2">
-              Search
-            </button>
-          </form>
-          <ListOrGrid
-            active={this.state.layoutMode}
-            changeLayout={e => this.handleLayoutChange(e)}
-          />
-        </div>
-        <br />
-        {this.state.movies === undefined || this.state.movies.length === 0 ? (
-          <p>No Results</p>
-        ) : (
-          <div>
-            <p>
-              Showing <span className="font-weight-bold">{totalResults}</span>{" "}
-              results for '{this.state.submitedMovieName}'
-            </p>
-            {this.renderMoviesPosterList(this.state.movies)}
           </div>
-        )}
+        </header>
+        <br />
+        <div className="container result-top">
+          
+          {this.state.movies === undefined || this.state.movies.length === 0 ? (
+            <div class="text-center my-5">
+              <img
+                width="135"
+                src={require('../img/search.gif')}
+                className="d-inline-block align-top logo"
+                alt="Logo"
+              />
+              <h4>No Results!</h4>
+              <p>Type Something in the search bar..</p>
+            </div>
+          ) : (
+              <div className="container">
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="d-flex justify-content-between">
+                      <div class="d-flex">
+                        <ListOrGrid
+                          active={this.state.layoutMode}
+                          changeLayout={e => this.handleLayoutChange(e)}
+                        />
+                      </div>
+                      <div class="d-flex">
+                        Showing <span className="font-weight-bold mx-2">{totalResults}</span>{" "}
+                        results for '{this.state.submitedMovieName}'
+                      </div>
+                    </div>
+                    {this.renderMoviesPosterList(this.state.movies)}
+                  </div>
+                </div>
+              </div>
+          )}
+        </div>
         <Pagination
           pageCount={totalPages || 1}
           currentPage={currentPage}
