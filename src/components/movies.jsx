@@ -156,7 +156,7 @@ class Movies extends Component {
             <div class="text-center my-5">
               <img
                 width="135"
-                src={require('../img/search.gif')}
+                src={require('../images/search.gif')}
                 className="d-inline-block align-top logo"
                 alt="Logo"
               />

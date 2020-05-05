@@ -41,7 +41,7 @@ class NavBar extends React.Component {
             <div className="header-inner clearfix">
               <div className="header-logo">
                 <NavLink exact className="logo-text" to="/">
-                  <b className="text-warning mt-2"><img src={require('../img/logo.png')} width="60" /></b>
+                  <b className="text-warning mt-2"><img src={require('../images/logo.png')} width="60" /></b>
                 </NavLink>
               </div>
               <div className="header-menu d-none d-md-block">
